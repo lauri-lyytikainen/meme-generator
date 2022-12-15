@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/meme-generator/static/css/main.52c68700.css",
-    "main.js": "/meme-generator/static/js/main.f98c152e.js",
+    "main.js": "/meme-generator/static/js/main.92cc8d4b.js",
     "static/media/blueprint-icons-20.eot?": "/meme-generator/static/media/blueprint-icons-20.d317d8e9664636080ad2.eot",
     "static/media/blueprint-icons-20.ttf?": "/meme-generator/static/media/blueprint-icons-20.c6dea603c58a0bcb5512.ttf",
     "static/media/blueprint-icons-16.eot?": "/meme-generator/static/media/blueprint-icons-16.4c64ca9bc9382d8efa79.eot",
@@ -12,10 +12,10 @@
     "static/media/blueprint-icons-16.woff2?": "/meme-generator/static/media/blueprint-icons-16.f81c5e3e118a3659abda.woff2",
     "index.html": "/meme-generator/index.html",
     "main.52c68700.css.map": "/meme-generator/static/css/main.52c68700.css.map",
-    "main.f98c152e.js.map": "/meme-generator/static/js/main.f98c152e.js.map"
+    "main.92cc8d4b.js.map": "/meme-generator/static/js/main.92cc8d4b.js.map"
   },
   "entrypoints": [
     "static/css/main.52c68700.css",
-    "static/js/main.f98c152e.js"
+    "static/js/main.92cc8d4b.js"
   ]
 }
