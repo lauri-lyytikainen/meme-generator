@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { Navbar } from '@blueprintjs/core';
+import MemeGenerator from './components/MemeGenerator';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div>
+      <Navbar>
+        <Navbar.Group>
+          <Navbar.Heading>Meme Generator</Navbar.Heading>
+          <Navbar.Divider />
+        </Navbar.Group>
+      </Navbar>
+
+      <div>
+        <MemeGenerator />
+      </div>
+      <Navbar
+        style={{
+          position: 'fixed',
+          left: '0',
+          bottom: '0',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Made with{' '}
+          <span role="img" aria-label="love">
+            ❤️
+          </span>{' '}
+          by Lauri Lyytikäinen
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      </Navbar>
     </div>
   );
 }
