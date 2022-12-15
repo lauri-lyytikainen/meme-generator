@@ -12,6 +12,33 @@ const MemeViewer = (props) => {
   let [outputWidth, setOutputWidth] = React.useState(0);
   let [outputHeight, setOutputHeight] = React.useState(0);
 
+  function wrapText(context, text, x, y, maxWidth, lineHeight, fontSize) {
+    context.textAlign = 'center';
+    context.textBaseline = 'middle';
+    context.font = `${fontSize}px impact`;
+    context.lineWidth = fontSize / 24;
+
+    var words = text.split(' ');
+    var line = '';
+
+    for (var n = 0; n < words.length; n++) {
+      var testLine = line + words[n] + ' ';
+      var metrics = context.measureText(testLine);
+      var testWidth = metrics.width;
+      if (testWidth > maxWidth && n > 0) {
+        context.fillText(line, x, y);
+        context.strokeText(line, x, y);
+        line = words[n] + ' ';
+        y += lineHeight;
+      } else {
+        line = testLine;
+      }
+    }
+
+    context.fillText(line, x, y);
+    context.strokeText(line, x, y);
+  }
+
   const addTextToImage = (canvas, topText, bottomText, displayFullSized) => {
     if (!canvas) {
       return;
@@ -19,7 +46,7 @@ const MemeViewer = (props) => {
     var context = canvas.getContext('2d');
     const previewSize = 380;
     const fullSize = 1042;
-    let size = displayFullSized ? fullSize : previewSize;
+    let imageSize = displayFullSized ? fullSize : previewSize;
 
     // Draw Image function
     var img = new Image();
@@ -27,8 +54,8 @@ const MemeViewer = (props) => {
     img.onload = function () {
       setImageWidth(img.width);
       setImageHeight(img.height);
-      var hRatio = size / img.width;
-      var vRatio = size / img.height;
+      var hRatio = imageSize / img.width;
+      var vRatio = imageSize / img.height;
       var ratio = Math.min(hRatio, vRatio);
       var centerShift_x = (canvas.width - img.width * ratio) / 2;
       var centerShift_y = (canvas.height - img.height * ratio) / 2;
@@ -58,14 +85,25 @@ const MemeViewer = (props) => {
       context.lineStyle = '#000000';
       const fontSize = Math.max(img.height * ratio, img.width * ratio) / 10;
       const offset = fontSize;
-      context.font = `${fontSize}px impact`;
-      context.textAlign = 'center';
-      context.textBaseline = 'middle';
-      context.lineWidth = fontSize / 8;
-      context.strokeText(topText, size / 2, offset);
-      context.fillText(topText, size / 2, offset);
-      context.strokeText(bottomText, size / 2, img.height * ratio - offset);
-      context.fillText(bottomText, size / 2, img.height * ratio - offset);
+
+      wrapText(
+        context,
+        topText,
+        imageSize / 2,
+        offset,
+        Math.min(imageSize, 1024),
+        fontSize,
+        fontSize
+      );
+      wrapText(
+        context,
+        bottomText,
+        imageSize / 2,
+        img.height * ratio - offset,
+        Math.min(imageSize, 1024),
+        fontSize,
+        fontSize
+      );
     };
   };
 
@@ -112,7 +150,11 @@ const MemeViewer = (props) => {
           <p>Click image to view full size</p>
         </div>
       </Button>
-      <Overlay isOpen={isOverlayOpen} onClose={toggleOverlay}>
+      <Overlay
+        isOpen={isOverlayOpen}
+        onClose={toggleOverlay}
+        transitionDuration={0}
+      >
         <Card
           style={{
             // Aling the card to the center of the screen

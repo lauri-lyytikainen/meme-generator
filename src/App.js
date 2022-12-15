@@ -29,7 +29,10 @@ function App() {
           <span role="img" aria-label="love">
             ❤️
           </span>{' '}
-          by Lauri Lyytikäinen
+          by{' '}
+          <a href="https://github.com/lauri-lyytikainen" target="_blank">
+            Lauri Lyytikäinen
+          </a>
         </p>
       </Navbar>
     </div>
